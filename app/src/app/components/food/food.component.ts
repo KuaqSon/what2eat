@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FoodService } from 'src/app/services/food';
 
 @Component({
   selector: 'app-food',
@@ -7,13 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FoodComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private _foodService: FoodService
+  ) { }
 
   ngOnInit() {
   }
 
   getRandomFood() {
-    console.log("random");
+    this._foodService.getRandomFood()
+      .subscribe({
+        next: response => {
+          console.log(response);
+        }
+      })
   }
 
 }
