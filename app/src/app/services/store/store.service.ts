@@ -1,15 +1,15 @@
-import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Injectable } from "@angular/core";
+import { Observable, BehaviorSubject } from "rxjs";
+import { IFood } from "src/app/models";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class StoreService {
-
   private _tempData$ = new BehaviorSubject<any>(null);
   private _sidebarStatus$ = new BehaviorSubject<boolean>(true);
 
-  constructor() { }
+  constructor() {}
 
   public get tempData$(): Observable<any> {
     return this._tempData$.asObservable();
@@ -37,6 +37,30 @@ export class StoreService {
       localStorage.removeItem("cb_token");
     } else {
       localStorage["cb_token"] = token;
+    }
+  }
+
+  public getDailyFood(): IFood {
+    return JSON.parse(localStorage["daily_food"]) as IFood;
+  }
+
+  public setDailyFood(food: IFood): void {
+    if (!food) {
+      localStorage.removeItem("daily_food");
+    } else {
+      localStorage["daily_food"] = JSON.stringify(food);
+    }
+  }
+
+  public getFetchFoodTime(): string {
+    return localStorage["fetch_food_time"];
+  }
+
+  public setFetchFoodTime(time: string) {
+    if (!time) {
+      localStorage.removeItem("fetch_food_time");
+    } else {
+      localStorage["fetch_food_time"] = time;
     }
   }
 }

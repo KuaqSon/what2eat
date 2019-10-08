@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { ResponseBase, IFood } from "src/app/models";
+import { ResponseBase, IRandomFoodResonse } from "src/app/models";
 import { API as api } from "src/app/configs";
 
 @Injectable({
@@ -10,7 +10,7 @@ import { API as api } from "src/app/configs";
 export class FoodService {
   constructor(private _http: HttpClient) {}
 
-  getRandomFood(): Observable<ResponseBase<IFood>> {
-    return this._http.get<ResponseBase<IFood>>(api.random_food);
+  getRandomFood(): Observable<IRandomFoodResonse> {
+    return this._http.get<IRandomFoodResonse>(api.random_food);
   }
 }
