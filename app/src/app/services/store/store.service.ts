@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Observable, BehaviorSubject } from "rxjs";
 import { IFood } from "src/app/models";
+import { ɵNullViewportScroller } from "@angular/common";
 
 @Injectable({
   providedIn: "root"
@@ -41,7 +42,13 @@ export class StoreService {
   }
 
   public getDailyFood(): IFood {
-    return JSON.parse(localStorage["daily_food"]) as IFood;
+    const food = localStorage["daily_food"];
+
+    if (food) {
+      return JSON.parse(food) as IFood;
+    }
+
+    return null;
   }
 
   public setDailyFood(food: IFood): void {
